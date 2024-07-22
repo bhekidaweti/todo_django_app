@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html lang = "en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To Do APP</title>
+<!--link rel="shortcut icon" type = "img/png" href="img/turn.png"-->
+<!--link rel = "Stylesheet" href = "styles.css"-->
+</head>
+<body id = "body">
+    {% load static %}
+    <h1> Tasks to do:</h1>
+    <ul class="list-group">
+        {% for todo in todos %}
+            <li class="list-group-item">
+                <h1>{{ todo.task }} </h1>
+                <p>{{ todo.description }}</p>
+                <form action="{% url 'delete_task' todo.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <h1>Add task</h1>
+    <form method="post" action="{% url 'create_task' %}">
+        {% csrf_token %} 
+            <input type="text" name="task" placeholder="Task name" required> 
+            <input type="text" name="description" placeholder="Task description" required>               
+            <button type="submit" name="submit" class="btn btn-outline-primary">
+              Add Task
+            </button> 
+      </form>
+
+</body>
+</html>
